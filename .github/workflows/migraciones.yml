@@ -1,0 +1,36 @@
+# Al unir a main, aplica en Supabase las migraciones nuevas de
+# supabase/migrations. Va antes que el front que las usa, y cada migración
+# debe dejar funcionando la versión anterior del front.
+name: Migraciones
+
+on:
+  push:
+    branches: [main]
+    paths: ['supabase/migrations/**']
+  workflow_dispatch:
+
+concurrency:
+  group: migraciones
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  aplicar:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+      SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - run: supabase link --project-ref "$SUPABASE_PROJECT_REF"
+
+      - name: Aplicar migraciones
+        run: supabase db push

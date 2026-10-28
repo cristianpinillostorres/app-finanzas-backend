@@ -3,6 +3,7 @@
 # A string used to distinguish different Supabase projects on the same host. Defaults to the
 # working directory name when running `supabase init`.
 project_id = "app-finanzas"
+# Proyecto en la nube: emdrqmnmbzngmudqzaor (sa-east-1)
 
 [api]
 enabled = true

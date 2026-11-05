@@ -42,5 +42,5 @@ El cliente OAuth de Google (Google Cloud → Credenciales) debe tener como
 URI de redireccionamiento `https://<ref>.supabase.co/auth/v1/callback`.
 
 La confirmación de correo está apagada (`enable_confirmations = false`),
-igual que en la versión con Firebase. Para producción conviene conectar
+Para producción conviene conectar
 Brevo como SMTP y decidir si se activa.
